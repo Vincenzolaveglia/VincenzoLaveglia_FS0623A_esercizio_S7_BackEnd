@@ -6,7 +6,7 @@ using System.Web.Security;
 
 namespace Gestionale_Pizzeria.Models
 {
-    public class Gestionale_Pizzeria : RoleProvider
+    public class RoleManager : RoleProvider
     {
         DBContext db = new DBContext();
 

@@ -1,7 +1,8 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title - Applicazione ASP.NET</title>
@@ -9,32 +10,155 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark" style="border-bottom: 1px solid black">
         <div class="container">
-            @Html.ActionLink("Nome dell'applicazione", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Attiva/Disattiva spostamento" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, new { @class = "nav-link" })</li>
-                </ul>
-            </div>
+            <a href="@Url.Action("Index", "Home")" class="navbar-brand"><img src="~/Content/imgs/logo.jpeg" style="width:50px" /></a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    <div class="mx-5 collapse navbar-collapse d-flex justify-content-start">
+                        <div class="d-flex btn btn-outline-danger">
+                            <ul style="list-style: none" class="m-0 p-0">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Menu Admin
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        @Html.ActionLink("Gestione Prodotti", "ListaProdotto", "Prodotto", new { area = "" }, new { @class = "nav-link mx-3" })
+                                        <li><hr /></li>
+                                        @Html.ActionLink("Gestione Ordini", "ListaOrdine", "Ordine", new { area = "" }, new { @class = "nav-link mx-3" })
+                                        <li><hr /></li>
+                                        @Html.ActionLink("Controllo Ordini", "ControlloOrdine", "Ordine", new { area = "" }, new { @class = "nav-link mx-3" })
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="d-flex btn btn-outline-secondary">
+                        <ul style="list-style: none" class="m-0 p-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Ciao @*@User.Identity.Name*@
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Profilo", "Profilo", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li><hr /></li>
+                                    <li>@Html.ActionLink("Carrello", "VisualizzaCarrello", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li><hr /></li>
+                                    <li>@Html.ActionLink("Logout", "Logout", "Auth", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex btn btn-outline-secondary">
+                        <ul style="list-style: none" class="m-0 p-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Ciao @*@User.Identity.Name*@
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Profilo", "Profilo", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li><hr /></li>
+                                    <li>@Html.ActionLink("Carrello", "VisualizzaCarrello", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li>@Html.ActionLink("Miei Ordini", "ListaOrdine", "Ordine", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li><hr /></li>
+                                    <li>@Html.ActionLink("Logout", "Logout", "Auth", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                }
+            }
+            else
+            {
+                @Html.ActionLink("Login", "Login", "Auth", new { area = "" }, new { @class = "nav-link mx-3" });
+            }
         </div>
     </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Applicazione ASP.NET</p>
-        </footer>
     </div>
+    <footer class="mt-5" style="background-color: #ffd4b6">
+        <div class="container p-4" style="height: 13em;">
+            <div class="row" style="height: 100%">
+                <div class="col-lg-6 col-md-12 mb-4 w-25">
+                    <h5 class="mb-3" style="letter-spacing: 2px; color: black;"><strong>InForno Since 1980</strong></h5>
+                    <p style="font-size: 13px;">
+                        InForno nasce nel 1980 a Roma, è cresciuta negli anni grazie alla laboriosità di Mario Rossi che oggi, con passione, porta avanti la tradizione di famiglia seguendo le orme del padre Michele e del nonno Tommaso.
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-3" style="letter-spacing: 2px; color: black; ">links</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-1 d-flex flex-column">
+                            <a href="#!" style="color: #4f4f4f;">Domande frequenti</a>
+                            <a href="#!" style="color: #4f4f4f;">Condizioni di Vendita</a>
+                            <a href="#!" style="color: #4f4f4f;">Modalità di Pagamento</a>
+                            <a href="#!" style="color: #4f4f4f;">Consegna e Trasporto</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-1" style="letter-spacing: 2px; color: black; ">Orario di apertura</h5>
+                    <table class="table" style="color: #4f4f4f; border-color: #666;">
+                        <tbody>
+                            <tr>
+                                <td>Lun - Ven:</td>
+                                <td>8:30 - 19:30</td>
+                            </tr>
+                            <tr>
+                                <td>Sab:</td>
+                                <td>8:30 - 13:30</td>
+                            </tr>
+                            <tr>
+                                <td>dom:</td>
+                                <td>Chiuso</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-1" style="letter-spacing: 2px; color: black;">Dove Siamo</h5>
+                    <table class="table" style="color: #4f4f4f; border-color: #666;">
+                        <tbody>
+                            <tr>
+                                <td>Indirizzo:</td>
+                                <td>Via Pizza, 1</td>
+                            </tr>
+                            <tr>
+                                <td>Località:</td>
+                                <td>Roma, RM 82016</td>
+                            </tr>
+                            <tr>
+                                <td>Telefono:</td>
+                                <td>+39 123 456 789</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="text-center p-3 d-flex justify-content-center" style="background-color: #fcba8b">
+            <div class="mx-5">
+                © 2023 Copyright:
+                <a class="text-dark" href="#">InForno</a>
+            </div>
+            <div class="mx-5">
+                Sito Web:
+                <a class="text-dark" href="#">InForno.it</a>
+            </div>
+        </div>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

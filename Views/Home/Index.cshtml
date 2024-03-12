@@ -1,26 +1,40 @@
-﻿<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="aspnetTitle">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-            a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-            is an ideal platform for building RESTful applications on the .NET Framework.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
-        </section>>
-    </div>
-</main>
+﻿﻿@model IEnumerable<Gestionale_Pizzeria.Models.Prodotti>
+
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2 class="text-center">Benvenuto nella Pizzeria "InForno"</h2>
+<h6 class="text-center">Il nostro menu</h6>
+<hr />
+<div class="row">
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                <div class="card mb-4" style="width: 18rem;">
+                    <img src="~/Content/imgs/@item.Foto" class="card-img-top" alt="Immagine del Prodotto" style="max-height: 180px;">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Nome</h5>
+                        <p class="card-text">Prezzo: @item.Prezzo</p>
+                        <form method="post" action="@Url.Action("AggiungiAlCarrello", "Home")">
+                            @Html.Hidden("id", item.IdProdotti)
+                            @Html.Hidden("nome", item.Nome)
+                            @Html.Hidden("prezzo", item.Prezzo)
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="form-group mb-3">
+                                    <label for="quantita">Quantità:</label>
+                                    <input type="number" class="form-control" name="quantita" min="1" value="1" id="quantita">
+                                </div>
+                                <button type="submit" class="btn btn-sm btn-success mb-3">Aggiungi Al Carrello</button>
+                            }
+                        </form>
+                        @Html.ActionLink("Dettagli", "DettagliProdotto", "Prodotto", new { id = item.IdProdotti }, new { @class = "btn btn-sm btn-warning" })
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

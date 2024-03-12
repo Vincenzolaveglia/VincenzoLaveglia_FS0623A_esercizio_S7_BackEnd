@@ -1,0 +1,68 @@
+﻿@model Gestionale_Pizzeria.Models.Prodotti
+
+@{
+    ViewBag.Title = "DettagliProdotto";
+}
+
+<div>
+    <h4 class="text-center">Dettagli Prodotto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Foto)
+        </dt>
+
+        <dd>
+            <img src="~/Content/imgs/@Model.Foto" class="card-img-top" style="height: 200px; width: 200px" alt="@Model.Foto">
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prezzo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prezzo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TempoConsegna)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TempoConsegna)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ingredienti)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ingredienti)
+        </dd>
+
+    </dl>
+</div>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Modifica", "ModificaProdotto", new { id = Model.IdProdotti }, new { @class = "btn btn-sm btn-warning" })
+    </p>
+    <p>
+        @Html.ActionLink("Ritorna alla lista", "ListaProdotto")
+    </p>
+}
+else
+{
+    <p>
+        @Html.ActionLink("Ritorna alla Home", "Index", "Home")
+    </p>
+}
+
