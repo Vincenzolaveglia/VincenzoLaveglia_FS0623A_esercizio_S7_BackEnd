@@ -28,7 +28,7 @@
                                     <label for="quantita">Quantità:</label>
                                     <input type="number" class="form-control" name="quantita" min="1" value="1" id="quantita">
                                 </div>
-                                <button type="submit" class="btn btn-sm btn-success mb-3">Aggiungi Al Carrello</button>
+                                <button type="submit" class="btn btn-sm btn-success mb-3" onsubmit=AggiungiAlCarrello()>Aggiungi Al Carrello</button>
                             }
                         </form>
                         @Html.ActionLink("Dettagli", "DettagliProdotto", "Prodotto", new { id = item.IdProdotti }, new { @class = "btn btn-sm btn-warning" })

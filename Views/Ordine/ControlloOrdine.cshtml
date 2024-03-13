@@ -1,0 +1,68 @@
+﻿﻿
+@{
+    ViewBag.Title = "ControlloOrdine";
+}
+
+<h2 class="text-center">Controllo Ordini</h2>
+
+
+<div class="d-flex flex-column align-items-center justify-content-center">
+    <input type="date" id="date" name="inputVal" placeholder="yyyy/mm/gg">
+    <div class="d-flex mb-3 mt-3">
+        <button id="BtnOrdini" class="mx-3 btn btn-sm btn-success">Ordini evasi</button>
+        <button id="BtnIncasso" class="mx-3 btn btn-sm btn-success">Totale incasso</button>
+    </div>
+    <div id="Risultato"></div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#BtnOrdini').click(function () {
+                $.ajax({
+                    method: "POST",
+                    url: "OrdiniEvasi",
+
+                    success: function (data) {
+                        $('#Risultato').empty();
+                        console.log(data);
+                        if (data.length > 0) {
+                            $('#Risultato').append("<p>Ordini evasi oggi: " + data.length + "</p>")
+                            $.each(data, function (index, value) {
+                                $("#Risultato").append("<p> N°ordine: " + value.Id + " / Username: " + value.Nome + "</p>");
+                            })
+                        } else {
+                            $('#Risultato').append("<p>Nessun ordine evaso oggi:</p>")
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                })
+            })
+
+            $('#BtnIncasso').click(function () {
+                var dateValue = $("#date").val()
+                $.ajax({
+                    method: "POST",
+                    url: "OrdineByData",
+                    data: { inputVal: dateValue },
+                    success: function (data) {
+                        $('#Risultato').empty();
+                        console.log(data);
+                        if (data > 0) {
+                            $("#Risultato").append("<p> Totale incasso in data " + dateValue + ": <strong>" + data + " € </strong> </p>");
+                        } else {
+                            $('#Risultato').append("<p>Nessun incasso alla data richiesta:</p>")
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                })
+            })
+
+        })
+    </script>
+}

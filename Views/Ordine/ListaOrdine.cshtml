@@ -1,0 +1,68 @@
+﻿﻿@model IEnumerable<Gestionale_Pizzeria.Models.Ordini>
+
+@{
+    ViewBag.Title = "ListaOrdine";
+    bool isAdmin = User.IsInRole("Admin");
+}
+
+<h2 class="text-center">Lista Ordini</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Utenti.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataOrdine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IndirizzoConsegna)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nota)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsCompleto)
+        </th>
+        @if (isAdmin)
+        {
+            <th></th>
+        }
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Utenti.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataOrdine)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IndirizzoConsegna)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nota)
+            </td>
+            <td>
+                @if (item.IsCompleto == "evaso")
+                {
+                    <span>Confermato</span>
+                }
+                else
+                {
+                    <span>In Attesa</span>
+                }
+            </td>
+
+            @if (isAdmin)
+            {
+                <td>
+                    @Html.ActionLink("Modifica", "ModificaOrdine", new { id = item.IdOrdine }, new { @class = "btn btn-sm btn-warning" })
+                </td>
+            }
+        </tr>
+    }
+
+</table>
