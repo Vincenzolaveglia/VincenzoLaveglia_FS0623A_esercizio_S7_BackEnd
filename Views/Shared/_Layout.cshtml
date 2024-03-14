@@ -42,9 +42,7 @@
                                     Ciao ADMIN
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Profilo", "Profilo", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
-                                    <li><hr /></li>
-                                    <li>@Html.ActionLink("Carrello", "VisualizzaCarrello", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li class="dropdown-item">Profilo</li>
                                     <li><hr /></li>
                                     <li>@Html.ActionLink("Logout", "Logout", "Auth", new { area = "" }, new { @class = "dropdown-item" })</li>
                                 </ul>
@@ -61,7 +59,7 @@
                                     Ciao USER
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Profilo", "Profilo", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li class = "dropdown-item">Profilo</li>
                                     <li><hr /></li>
                                     <li>@Html.ActionLink("Carrello", "VisualizzaCarrello", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
                                     <li>@Html.ActionLink("Miei Ordini", "ListaOrdine", "Ordine", new { area = "" }, new { @class = "dropdown-item" })</li>
@@ -87,25 +85,21 @@
         <div class="container p-4" style="height: 13em;">
             <div class="row" style="height: 100%">
                 <div class="col-lg-6 col-md-12 mb-4 w-25">
-                    <h5 class="mb-3" style="letter-spacing: 2px; color: black;"><strong>InForno Since 1980</strong></h5>
-                    <p style="font-size: 13px;">
-                        InForno nasce nel 1980 a Roma, è cresciuta negli anni grazie alla laboriosità di Mario Rossi che oggi, con passione, porta avanti la tradizione di famiglia seguendo le orme del padre Michele e del nonno Tommaso.
-                    </p>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <h5 class="mb-3" style="letter-spacing: 2px; color: black; ">links</h5>
+
+                    <h5 class="mb-3" style="letter-spacing: 2px; color: black; ">Links</h5>
                     <ul class="list-unstyled mb-0">
                         <li class="mb-1 d-flex flex-column">
-                            <a href="#!" style="color: #4f4f4f;">Domande frequenti</a>
-                            <a href="#!" style="color: #4f4f4f;">Condizioni di Vendita</a>
-                            <a href="#!" style="color: #4f4f4f;">Modalità di Pagamento</a>
-                            <a href="#!" style="color: #4f4f4f;">Consegna e Trasporto</a>
+                            <a href="#" style="color: #4f4f4f;">Domande frequenti</a>
+                            <a href="#" style="color: #4f4f4f;">Condizioni di Vendita</a>
+                            <a href="#" style="color: #4f4f4f;">Modalità di Pagamento</a>
+                            <a href="#" style="color: #4f4f4f;">Consegna e Trasporto</a>
                         </li>
                     </ul>
                 </div>
+
                 <div class="col-lg-3 col-md-6 mb-4">
                     <h5 class="mb-1" style="letter-spacing: 2px; color: black; ">Orario di apertura</h5>
-                    <table class="table" style="color: #4f4f4f; border-color: #666;">
+                    <table class="table" style="color: #4f4f4f; border-color: #666;" >
                         <tbody>
                             <tr>
                                 <td>Lun - Ven:</td>
@@ -146,7 +140,7 @@
         </div>
         <div class="text-center p-3 d-flex justify-content-center" style="background-color: #fcba8b">
             <div class="mx-5">
-                © 2023 Copyright:
+                © 2024 Copyright:
                 <a class="text-dark" href="#">InForno</a>
             </div>
             <div class="mx-5">

@@ -4,65 +4,69 @@
     ViewBag.Title = "DettagliProdotto";
 }
 
-<div>
-    <h4 class="text-center">Dettagli Prodotto</h4>
+<div class="container">
+    <h4 class="text-center mb-4">Dettagli Prodotto</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
+        <dt class="dt-title">
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
 
-        <dd>
+        <dd class="dd-value">
             @Html.DisplayFor(model => model.Nome)
         </dd>
 
-        <dt>
+        <dt class="dt-title">
             @Html.DisplayNameFor(model => model.Foto)
         </dt>
 
-        <dd>
-            <img src="~/Content/imgs/@Model.Foto" class="card-img-top" style="height: 200px; width: 200px" alt="@Model.Foto">
+        <dd class="dd-value">
+            <img src="~/Content/imgs/@Model.Foto" class="card-img-top" style="max-height: 200px; max-width: 200px" alt="@Model.Foto">
         </dd>
 
-        <dt>
+        <dt class="dt-title">
             @Html.DisplayNameFor(model => model.Prezzo)
         </dt>
 
-        <dd>
+        <dd class="dd-value">
             @Html.DisplayFor(model => model.Prezzo)
         </dd>
 
-        <dt>
+        <dt class="dt-title">
             @Html.DisplayNameFor(model => model.TempoConsegna)
         </dt>
 
-        <dd>
+        <dd class="dd-value">
             @Html.DisplayFor(model => model.TempoConsegna)
         </dd>
 
-        <dt>
+        <dt class="dt-title">
             @Html.DisplayNameFor(model => model.Ingredienti)
         </dt>
 
-        <dd>
+        <dd class="dd-value">
             @Html.DisplayFor(model => model.Ingredienti)
         </dd>
 
     </dl>
 </div>
+
 @if (User.IsInRole("Admin"))
 {
-    <p>
-        @Html.ActionLink("Modifica", "ModificaProdotto", new { id = Model.IdProdotti }, new { @class = "btn btn-sm btn-warning" })
-    </p>
-    <p>
-        @Html.ActionLink("Ritorna alla lista", "ListaProdotto")
-    </p>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="@Url.Action("ModificaProdotto", new { id = Model.IdProdotti })" class="btn btn-warning btn-block">Modifica</a>
+            </div>
+            <div class="col-md-6">
+                <a href="@Url.Action("ListaProdotto")" class="btn btn-secondary btn-block">Ritorna alla lista</a>
+            </div>
+        </div>
+    </div>
 }
 else
 {
-    <p>
-        @Html.ActionLink("Ritorna alla Home", "Index", "Home")
-    </p>
+    <div class="container mt-4">
+        <a href="@Url.Action("Index", "Home")" class="btn btn-primary btn-block">Ritorna alla Home</a>
+    </div>
 }
-

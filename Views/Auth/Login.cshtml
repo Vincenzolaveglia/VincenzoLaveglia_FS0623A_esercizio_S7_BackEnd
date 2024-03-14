@@ -4,33 +4,30 @@
 @{
     ViewBag.Title = "Login";
 }
-
-<h2>Login</h2>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    if (TempData["ErrorLogin"] != null)
+<div>
+    <h2>Login</h2>
+    @using (Html.BeginForm())
     {
-        <div class="alert alert-danger">
-            Le credenziali non sono corrette
+        @Html.AntiForgeryToken()
+
+        if (TempData["ErrorLogin"] != null)
+        {
+            <div class="alert alert-danger">
+                Le credenziali non sono corrette
+            </div>
+        }
+
+        <div class="mb-3">
+            @Html.TextBoxFor(model => model.Username, new { @class = "form-control form-control-lg", placeholder = "Username" })
+            @Html.ValidationMessageFor(model => model.Username, "", new { @style = "color: red" })
         </div>
+
+        <div class="mb-3">
+            @Html.PasswordFor(model => model.Password, new { @class = "form-control form-control-lg", placeholder = "Password" })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @style = "color: red" })
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Login</button>
     }
-
-    <div class="mb-3">
-        @Html.TextBoxFor(model => model.Username, new { @class = "form-control form-control-lg", placeholder = "Username" })
-        @Html.ValidationMessageFor(model => model.Username, "", new { @style = "color: red" })
-    </div>
-
-    <div class="mb-3">
-        @Html.PasswordFor(model => model.Password, new { @class = "form-control form-control-lg", placeholder = "Password" })
-        @Html.ValidationMessageFor(model => model.Password, "", new { @style = "color: red" })
-    </div>
-
-    @*<div class="mb-3 form-check">
-            @Html.CheckBox("keepLogged", true, new { @class = "form-check-input" })
-            <label class="form-check-label" for="keepLogged">Mantienimi loggato</label>
-        </div>*@
-
-    <button type="submit" class="btn btn-primary">Login</button>
-}
+</div>
