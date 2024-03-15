@@ -49,7 +49,7 @@ namespace Gestionale_Pizzeria.Controllers
             }
             else
             {
-                return View("Home");
+                return RedirectToAction("VisualizzaCarrello", "Home");
             }
         }
 
@@ -84,47 +84,54 @@ namespace Gestionale_Pizzeria.Controllers
         [HttpPost]
         public ActionResult ConcludiOrdine(string indirizzoConsegna, string noteSpeciali)
         {
-
-            int userId = (int)Session["UserId"];
-
-            if (userId == 0)
+            if (Session["IdUtente"] != null)
             {
-                FormsAuthentication.SignOut();
-            }
+                int userId = (int)Session["IdUtente"];
 
-            if (Session["UserId"] != null)
-            {
-                if (Session["Carrello"] is List<CarrelloItem> carrelloItems && carrelloItems.Any())
+
+                if (HttpContext.User.Identity.IsAuthenticated)
                 {
-                    decimal totale = carrelloItems.Sum(item => item.Prodotto.Prezzo * item.Quantita);
-
-                    var nuovoOrdine = new Ordini
+                    if (Session["Carrello"] is List<CarrelloItem> carrelloItems && carrelloItems.Any())
                     {
-                        UtenteId = (int)Session["UserId"],
-                        DataOrdine = DateTime.Now,
-                        IsCompleto = "false",
-                        IndirizzoConsegna = indirizzoConsegna,
-                        Nota= noteSpeciali,
-                        OrdiniProdotti = carrelloItems.Select(item => new OrdiniProdotti
+                        decimal totale = carrelloItems.Sum(item => item.Prodotto.Prezzo * item.Quantita);
+
+                        var nuovoOrdine = new Ordini
                         {
-                            ProdottoId = item.Prodotto.IdProdotti,
-                            Quantita = item.Quantita
-                        }).ToList()
-                    };
+                            UtenteId = (int)Session["IdUtente"],
+                            DataOrdine = DateTime.Now,
+                            IsCompleto = "false",
+                            IndirizzoConsegna = indirizzoConsegna,
+                            Nota = noteSpeciali,
+                            OrdiniProdotti = carrelloItems.Select(item => new OrdiniProdotti
+                            {
+                                ProdottoId = item.Prodotto.IdProdotti,
+                                Quantita = item.Quantita
+                            }).ToList()
+                        };
 
-                    db.Ordini.Add(nuovoOrdine);
-                    db.SaveChanges();
+                        db.Ordini.Add(nuovoOrdine);
+                        db.SaveChanges();
 
-                    Session["Carrello"] = null;
+                        Session["Carrello"] = null;
 
-                    return RedirectToAction("Index");
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login");
+                    }
                 }
                 else
                 {
-                    return RedirectToAction("Login");
+                    return RedirectToAction("Index");
                 }
             }
-            return RedirectToAction("Index");
+            else
+            {
+                return RedirectToAction("Login", "Auth");
+            }
         }
+
+
     }
 }

@@ -28,6 +28,7 @@ namespace Gestionale_Pizzeria.Controllers
             }
 
             FormsAuthentication.SetAuthCookie(loggedUser.IdUtente.ToString(), true);
+            Session["UserId"] = loggedUser.IdUtente;
             return RedirectToAction("Index", "Home");
 
         }
@@ -37,6 +38,32 @@ namespace Gestionale_Pizzeria.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Auth");
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Register( Utenti utente)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                db.Utenti.Add(utente);
+                db.SaveChanges();
+
+                Session["IdUtente"] = utente.IdUtente;
+                FormsAuthentication.SetAuthCookie(utente.IdUtente.ToString(), true);
+
+                return RedirectToAction("Login");
+            }
+
+            return View();
         }
 
     }

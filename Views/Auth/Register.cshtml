@@ -1,0 +1,37 @@
+﻿@model Gestionale_Pizzeria.Models.Utenti
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+@using (Html.BeginForm())
+{
+    <div class="mb-3">
+        @Html.TextBoxFor(model => model.Username, new { @class = "form-control form-control-lg", placeholder = "Nome" })
+        @Html.ValidationMessageFor(model => model.Username, "", new { @style = "color: red" })
+    </div>
+
+    <div class="mb-3">
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control form-control-lg", placeholder = "Email" })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @style = "color: red" })
+    </div>
+
+    <div class="mb-3">
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control form-control-lg", placeholder = "Password" })
+        @Html.ValidationMessageFor(model => model.Password, "", new { @style = "color: red" })
+    </div>
+
+    <div class="mb-3">
+        <p>Inserisci user/admin</p>
+        @Html.TextBoxFor(model => model.Ruolo, new { @class = "form-control form-control-lg", placeholder = "Ruolo" })
+        @Html.ValidationMessageFor(model => model.Ruolo, "", new { @style = "color: red" })
+    </div>
+
+    <input type="submit" value="Register" class="btn btn-danger" />
+
+    <p class="mb-5 mt-3" style="color: #393f81;">
+        <span class="text-black">Hai già un account?</span>
+        @Html.ActionLink("Accedi", "Login", "Auth", null, new { style = "color: #393f81;" })
+    </p>
+}

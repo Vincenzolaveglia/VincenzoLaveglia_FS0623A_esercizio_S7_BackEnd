@@ -27,7 +27,11 @@
             @Html.ValidationMessageFor(model => model.Password, "", new { @style = "color: red" })
         </div>
 
-
         <button type="submit" class="btn btn-primary">Login</button>
+
+        <p class="mb-5 mt-3" style="color: #393f81;">
+            <span class="text-black">Non hai un account?</span>
+            @Html.ActionLink("Registrati", "Register", "Auth", null, new { style = "color: #393f81;" })
+        </p>
     }
 </div>

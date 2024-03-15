@@ -39,10 +39,19 @@ namespace Gestionale_Pizzeria.Models
 
         public override string[] GetRolesForUser(string userId)
         {
-            string role = db.Utenti.Where(u => u.IdUtente.ToString() == userId).FirstOrDefault().Ruolo;
-            string[] roles = new string[] { role };
-            return roles;
+            var utente = db.Utenti.FirstOrDefault(u => u.IdUtente.ToString() == userId);
+            if (utente != null)
+            {
+                string role = utente.Ruolo;
+                string[] roles = new string[] { role };
+                return roles;
+            }
+            else
+            {
+                return new string[0];
+            }
         }
+
 
         public override string[] GetUsersInRole(string roleName)
         {

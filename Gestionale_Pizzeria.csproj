@@ -265,6 +265,7 @@
     <Content Include="Views\Ordine\ControlloOrdine.cshtml" />
     <Content Include="Views\Ordine\ListaOrdine.cshtml" />
     <Content Include="Views\Ordine\ModificaOrdine.cshtml" />
+    <Content Include="Views\Auth\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
